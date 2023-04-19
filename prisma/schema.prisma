@@ -12,5 +12,4 @@ model product {
   id Int @id @default(autoincrement())
   name String?
   price Float
-  stock Int
 }
