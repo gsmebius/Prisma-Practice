@@ -7,14 +7,10 @@ const prisma = new PrismaClient();
 export const getProductById = async (req: Request, res: Response) => {
     try {
       const { productId } = req.params;
+
       const product = await prisma.product.findFirst({
         where: { id: Number(productId) },
       });
-  
-      if (!product)
-        return res.status(404).send({
-          message: 'Sorry, category not found'
-        });
   
       return res.status(200).send({ product });
 
@@ -30,11 +26,6 @@ export const getProductById = async (req: Request, res: Response) => {
     try {
       const produtcs = await prisma.product.findMany();
 
-      if (!produtcs)
-      return res.status(404).send({
-        message: 'Sorry, category not found'
-      });
-
       return res.status(200).send({ produtcs });
 
     } catch (e) {
@@ -47,7 +38,8 @@ export const getProductById = async (req: Request, res: Response) => {
   
   export const createProduct = async (req: Request, res: Response) => {
     try {
-      const { name, price, stock, urlImage, categoryId } = req.body;
+      const { name, price } = req.body;
+
       await prisma.product.create({
         data: { name, price }
       });
@@ -71,13 +63,14 @@ export const getProductById = async (req: Request, res: Response) => {
   
       const productUpdate = await prisma.product.update({
         where: { id: Number(productId) },
-        data: {name, price}
+        data: { name, price }
       });
   
       res.status(200).send({
         message: 'product updated successfully',
-        newProduct: productUpdate
+        productUpdate
       });
+
     } catch (e) {
       return res.status(500).send({
         message: 'ups, server error',
