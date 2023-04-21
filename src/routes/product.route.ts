@@ -7,10 +7,12 @@ import {
   createProduct
 } from '../controllers/product.controller';
 
+import { verifyToken } from '../utilities/middlewere';
+
 export const productRouter = express.Router();
 
-productRouter.get('/', getProducts);
-productRouter.get('/:productId', getProductById);
-productRouter.post('/', createProduct);
-productRouter.put('/:productId', updateProduct);
-productRouter.delete('/:productId', deleteProduct);
+productRouter.get('/', verifyToken, getProducts);
+productRouter.get('/:productId', verifyToken, getProductById);
+productRouter.post('/', verifyToken, createProduct);
+productRouter.put('/:productId', verifyToken, updateProduct);
+productRouter.delete('/:productId', verifyToken, deleteProduct);
