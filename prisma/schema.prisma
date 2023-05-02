@@ -13,11 +13,3 @@ model product {
   name String?
   price Float
 }
-
-model user {
-  id Int @id @default(autoincrement())
-  name String?
-  email String?
-  password String?
-  tokenPass String?
-}
